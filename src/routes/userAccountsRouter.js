@@ -13,16 +13,19 @@ accountsRouter.post("/signup", async (req, res) => {
             password: req.body.password,
             admin: false
         }
-        user = await AccountsInfo.findOne({ $or: [{ uname: item.uname }, { email: item.email }] });
-        if (user) throw new Error("User already exists.");
-        const userAccount = new AccountsInfo(item);
-        userAccount.save()
-            .then(() => res.json({ status: "Success" }))
-            .catch((er) => {
-                console.log(er)
-                res.sendStatus(500).json({ status: "Error" });
-            });
-    } catch (error) {
+        if (item.uname !== "" && item.email !== "" && item.password !== "") {
+            user = await AccountsInfo.findOne({ $or: [{ uname: item.uname }, { email: item.email }] });
+            if (user) throw new Error("User already exists.");
+            const userAccount = new AccountsInfo(item);
+            userAccount.save()
+                .then(() => res.json({ status: "Success" }))
+                .catch((er) => {
+                    console.log(er)
+                    res.sendStatus(500).json({ status: "Error" });
+                });
+        } else {
+            res.json({ status: "Error", message: "Invalid inputs" });
+        }} catch (error) {
         res.json({ status: "Error", message: error.message });
     }
    
