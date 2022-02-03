@@ -29,7 +29,7 @@ postsRouter.post("/post", (req, res) => {
         title: req.body.title,
         description: req.body.description,
         name: req.body.name,
-        upvotes: 0,
+        upvoters: [],
         comments: []
     }
     const blogPost = new ArticleInfo(item);

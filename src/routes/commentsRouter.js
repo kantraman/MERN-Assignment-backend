@@ -19,8 +19,9 @@ commentsRouter.get("/:id", (req, res) => {
 //router to set upvotes
 commentsRouter.post("/:id/upvotes", (req, res) => {
     const articleId = req.params.id;
+    const username = req.body.username;
     const filter = { _id: articleId };
-    const update = { $inc: { upvotes: 1 } };
+    const update = { $push: { upvoters: username} } ;
     ArticleInfo.findOneAndUpdate(filter, update, { new: true })
         .then((article) => {
             res.json(article);

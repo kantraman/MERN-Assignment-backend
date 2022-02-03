@@ -8,7 +8,7 @@ var articleSchema = new Schema({
     title: String,
     description: String,
     name: String,
-    upvotes: Number,
+    upvoters: Array,
     comments: Array
 })
 
