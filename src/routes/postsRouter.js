@@ -43,7 +43,7 @@ postsRouter.post("/post", (req, res) => {
 
 //Router to update blog post
 postsRouter.post("/:id/update", (req, res) => {
-    const postId = req.body.id;
+    const postId = req.params.id;
     var updateItem = {
         title: req.body.title,
         description: req.body.description
@@ -58,7 +58,7 @@ postsRouter.post("/:id/update", (req, res) => {
 
 //Router to delete blog post
 postsRouter.post("/:id/delete", (req, res) => {
-    const postId = req.body.id;
+    const postId = req.params.id;
     ArticleInfo.findByIdAndDelete(postId)
         .then(() =>  res.json({status: "Success"}))
         .catch((er) => {
