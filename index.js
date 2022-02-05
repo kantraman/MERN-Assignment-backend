@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 const app = express();
-const PORT = 8000 || process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 const commentsRouter = require("./src/routes/commentsRouter");
 const postsRouter = require("./src/routes/postsRouter");
