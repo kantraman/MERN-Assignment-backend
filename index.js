@@ -22,7 +22,7 @@ app.use("/api/user", userAccountsRouter);
 
 app.use(express.static(path.resolve(__dirname, "./client")));
 app.get("*", (req, res) => {
-  response.sendFile(path.resolve(__dirname, "./client", "index.html"));
+  res.sendFile(path.resolve(__dirname, "./client", "index.html"));
 });
 
 app.use((err, req, res, next) => {
