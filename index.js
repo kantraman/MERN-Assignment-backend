@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv")
 const mongoose = require("mongoose");
+const path = require("path");
 
 const app = express();
 const PORT = 8000 || process.env.PORT;
@@ -18,6 +19,11 @@ app.use(cors());
 app.use("/api/comments", commentsRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api/user", userAccountsRouter);
+
+app.use(express.static(path.resolve(__dirname, "./client")));
+app.get("*", (req, res) => {
+  response.sendFile(path.resolve(__dirname, "./client", "index.html"));
+});
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500)
