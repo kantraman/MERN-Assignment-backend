@@ -2,6 +2,7 @@ const express = require("express");
 const accountsRouter = express.Router();
 const AccountsInfo = require("../model/UserAccounts");
 const { encryptData, decryptData } = require("../helpers/crypto");
+const jwt = require("jsonwebtoken");
 
 accountsRouter.post("/signup", async (req, res) => {
     
@@ -39,10 +40,12 @@ accountsRouter.post("/login", async (req, res) => {
         if (!user) throw new Error("Invalid username or password.");
         const isMatch = await user.isValidPassword(password);
         if (!isMatch) throw new Error("Invalid username or password.");
+        const payload = { user: user.uname, admin: user.admin };
+        const token = jwt.sign(payload, process.env.JWT_Key)
         res.json({
             uname: user.uname,
             admin: user.admin,
-            token: encryptData(user.email)
+            token: token
         });
          
     } catch (error) {
