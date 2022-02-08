@@ -41,7 +41,7 @@ accountsRouter.post("/login", async (req, res) => {
         const isMatch = await user.isValidPassword(password);
         if (!isMatch) throw new Error("Invalid username or password.");
         const payload = { user: user.uname, admin: user.admin };
-        const token = jwt.sign(payload, process.env.JWT_Key)
+        const token = jwt.sign(payload, process.env.JWT_Key, { expiresIn: '1d' });
         res.json({
             uname: user.uname,
             admin: user.admin,
